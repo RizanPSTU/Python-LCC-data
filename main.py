@@ -2,27 +2,23 @@
 """
 Created on Tue Jan 15 17:01:45 2019
 @author: Velocity_carbon
+
 """
 
 import datetime
 import cv2
 import time
 
-start='Start korlam\n'
-
-timefile = open('time.txt','a')
-timefile.write(start)
-timefile.close()
+print('Start korlam')
 
 cap = cv2.VideoCapture(0)
 
-second=datetime.datetime.now().strftime('%S')
 
 x=0
 
 new_s=int(datetime.datetime.now().strftime('%S'))
 
-wait_time=5
+wait_time=15
 
 check=(new_s + wait_time) % 60
     
@@ -76,10 +72,11 @@ while(True):
     
     
     new_s=int(datetime.datetime.now().strftime('%S'))
-    if new_s > check:
+    if new_s == check:
         x=x+1
         check=(check+wait_time) % 60
-        print(new_s)
+        print('New Ch',check)
+        print('Old sec =',new_s)
         
         #Saving time
         currenttime=datetime.datetime.now().strftime('\n%H:%M')
