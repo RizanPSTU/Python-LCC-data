@@ -2,14 +2,14 @@
 """
 Created on Tue Jan 15 17:01:45 2019
 @author: Velocity_carbon
-
 """
 
 import datetime
 import cv2
-import time
 
-print('Start korlam')
+#import time
+
+print('Main Start hoise :)')
 
 cap = cv2.VideoCapture(0)
 
@@ -18,10 +18,13 @@ x=0
 
 new_s=int(datetime.datetime.now().strftime('%S'))
 
-wait_time=15
+wait_time=30
 
 check=(new_s + wait_time) % 60
+
+mainstart =True
     
+print('Press S to start')
 while(True):
     # Capture frame-by-frame
     
@@ -29,13 +32,13 @@ while(True):
         ret, frame = cap.read()
     except:
         print('Camra te prb\n') 
-        cv2.destroyAllWindows()
-    # Our operations on the frame come here
-    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        break
+        
+        
     w =70
     h =120
-    thresh=150
-    minus =40
+    thresh=120
+    minus =30
     x1 =100-minus
     y1 =150
     
@@ -48,14 +51,45 @@ while(True):
     x4 =100+(thresh*3)-minus
     y4 =150
     
-    pauseframe= frame
+    pauseframe = frame
     cv2.rectangle(frame, (x1, y1), (x1+w, y1+h), (255, 255, 00), 2)
     cv2.rectangle(frame, (x2, y2), (x2+w, y2+h), (255, 255, 00), 2)
     cv2.rectangle(frame, (x3, y3), (x3+w, y3+h), (255, 255, 00), 2)
     cv2.rectangle(frame, (x4, y4), (x4+w, y4+h), (255, 255, 00), 2)
     
     # Display the resulting frame
-    cv2.imshow('frame',frame)
+    
+    try:
+        cv2.imshow('frame',frame)
+    except:
+        print('Show te prb\n')
+        break
+    
+    
+    if cv2.waitKey(1) & 0xFF == ord('p'):
+        print('pause hoisi :3 abar S to startq')
+        mainstart =True
+    
+    while(mainstart):
+        try:
+            ret, frame = cap.read()
+        except:
+            print('Camra te prb\n')
+            break
+            
+        cv2.rectangle(frame, (x1, y1), (x1+w, y1+h), (255, 255, 00), 2)
+        cv2.rectangle(frame, (x2, y2), (x2+w, y2+h), (255, 255, 00), 2)
+        cv2.rectangle(frame, (x3, y3), (x3+w, y3+h), (255, 255, 00), 2)
+        cv2.rectangle(frame, (x4, y4), (x4+w, y4+h), (255, 255, 00), 2)
+        try:
+            cv2.imshow('frame',frame)
+        except:
+            print('Show te prb\n')
+            
+        if cv2.waitKey(1) & 0xFF == ord('s'):
+            print('Start Hoilam :3')
+            mainstart =False
+
     
     
     #Crop
@@ -115,13 +149,7 @@ while(True):
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
     
-    if cv2.waitKey(1) & 0xFF == ord('p'):
-        while(True):
-            print('Pause ase :3')
-            time.sleep(1) 
-            if cv2.waitKey(1) & 0xFF == ord('s'):
-                print('Start hoibo :v')
-                break
+
     
     
 
