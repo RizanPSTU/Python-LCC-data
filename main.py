@@ -12,13 +12,14 @@ import cv2
 print('Main Start hoise :)')
 
 cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_AUTOFOCUS, 0)
 
 
 x=0
 
 new_s=int(datetime.datetime.now().strftime('%S'))
 
-wait_time=30
+wait_time=10
 
 check=(new_s + wait_time) % 60
 
@@ -37,8 +38,8 @@ while(True):
         
     w =70
     h =120
-    thresh=120
-    minus =30
+    thresh=170
+    minus =60
     x1 =100-minus
     y1 =150
     
@@ -109,40 +110,46 @@ while(True):
     if new_s == check:
         x=x+1
         check=(check+wait_time) % 60
-        print('New Ch',check)
-        print('Old sec =',new_s)
+
         
         #Saving time
-        currenttime=datetime.datetime.now().strftime('\n%H:%M')
-        print(currenttime)
+        currenttime=datetime.datetime.now().strftime('\n%H:%M:%S')
+        write_time= datetime.datetime.now().strftime('h%Hm%Ms%S')
+        print(x)
+        print(write_time)
+        #print(currenttime)
         timefile = open('time.txt','a')
         timefile.write(currenttime)
         timefile.close()
 
         #Saving 
         label1 = 'L1.jpg'
-        label1 = str(x) + label1
+        label1 = str(x) +str(write_time)+ label1
+        print(label1)
         dir_label1= 'D:/Python LCC data/L1/'
         label1= dir_label1 + label1    
         cv2.imwrite(label1 ,crop_img1)
         
         label2 = 'L2.jpg'
-        label2 = str(x) + label2
+        label2 = str(x) +str(write_time)+ label2
         dir_label2= 'D:/Python LCC data/L2/'
         label2= dir_label2 + label2    
         cv2.imwrite(label2 ,crop_img2)
         
         label3 = 'L3.jpg'
-        label3 = str(x) + label3
+        label3 = str(x) +str(write_time)+ label3
         dir_label3= 'D:/Python LCC data/L3/'
         label3= dir_label3 + label3    
         cv2.imwrite(label3 ,crop_img3)
         
         label4 = 'L4.jpg'
-        label4 = str(x) + label4
+        label4 = str(x) +str(write_time)+ label4
         dir_label4= 'D:/Python LCC data/L4/'
         label4= dir_label4 + label4    
         cv2.imwrite(label4 ,crop_img4)
+        
+        print('New Ch',check)
+        print('Old sec =',new_s)
 
     
     
